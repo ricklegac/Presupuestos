@@ -1,0 +1,698 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>PC Gamer Ryzen 9 + RTX 5070 Ti</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: ficha de armado. Columna de componentes y resumen fijo a la derecha en escritorio.
+   Motivo: hilera de contactos dorados con muesca, como el borde de una placa que entra en un slot. */
+:root{
+  --bg:#F3F3EF;
+  --surface:#FFFFFF;
+  --surface-2:#EAEAE4;
+  --line:#D9D9D1;
+  --fg:#17181A;
+  --muted:#5A5D58;
+  --accent:#D62828;
+  --on-accent:#17181A;
+  --accent-ink:#A51D1D;
+  --ok:#1D7442;
+  --ok-bg:#E0F0E6;
+  --seg-gpu:#17181A;
+  --seg-cpu:#D62828;
+  --seg-rest:#9A9D96;
+  --seg-free:#E6E6E0;
+  --photo-bg:#FFFFFF;
+  --scrim:rgba(12,12,14,.72);
+  --shadow:0 1px 0 rgba(23,24,26,.04),0 12px 28px -20px rgba(23,24,26,.35);
+  --font-display:"Barlow Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+  --font-body:"Barlow","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1011; --surface:#17181A; --surface-2:#202226; --line:#2C2E32; --fg:#ECECE7; --muted:#A1A49E;
+    --accent:#FF5A5F; --on-accent:#0F1011; --accent-ink:#FF777A; --ok:#62CC8E; --ok-bg:#14281C;
+    --seg-gpu:#ECECE7; --seg-cpu:#FF5A5F; --seg-rest:#6D706A; --seg-free:#24262A; --photo-bg:#FFFFFF;
+    --scrim:rgba(0,0,0,.78);
+    --shadow:0 1px 0 rgba(0,0,0,.35),0 14px 30px -20px rgba(0,0,0,.9);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1011; --surface:#17181A; --surface-2:#202226; --line:#2C2E32; --fg:#ECECE7; --muted:#A1A49E;
+  --accent:#FF5A5F; --on-accent:#0F1011; --accent-ink:#FF777A; --ok:#62CC8E; --ok-bg:#14281C;
+  --seg-gpu:#ECECE7; --seg-cpu:#FF5A5F; --seg-rest:#6D706A; --seg-free:#24262A; --photo-bg:#FFFFFF;
+  --scrim:rgba(0,0,0,.78);
+  --shadow:0 1px 0 rgba(0,0,0,.35),0 14px 30px -20px rgba(0,0,0,.9);
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--fg);
+  font-family:var(--font-body);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0 56px;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,p,ul,dl,dd{margin:0}
+ul{padding:0;list-style:none}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--fg);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1140px;margin-inline:auto}
+.label{font-family:var(--font-display);font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:.8125rem}
+
+/* Encabezado */
+.top{padding-block:18px 0}
+.top-in{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:1.375rem;letter-spacing:.08em}
+.brand-mark{width:20px;height:20px;border-radius:4px;background:var(--accent);box-shadow:inset 0 -5px 0 rgba(0,0,0,.18)}
+.doc-meta{display:flex;gap:4px 18px;flex-wrap:wrap;font-size:.875rem;color:var(--muted)}
+.doc-meta b{color:var(--fg);font-weight:600;font-variant-numeric:tabular-nums}
+.pins{
+  height:7px;margin-top:16px;border-radius:1px;
+  background:repeating-linear-gradient(90deg,var(--accent) 0 7px,transparent 7px 11px);
+  -webkit-mask:linear-gradient(90deg,#000 0 64%,transparent 64% 66.5%,#000 66.5%);
+          mask:linear-gradient(90deg,#000 0 64%,transparent 64% 66.5%,#000 66.5%);
+}
+
+/* Portada */
+.hero{padding-block:40px 36px;display:grid;gap:18px}
+.eyebrow{color:var(--accent-ink);letter-spacing:.14em;font-size:.875rem}
+h1{font-family:var(--font-display);font-weight:700;font-size:clamp(2.4rem,6.2vw,4.25rem);line-height:.98;text-wrap:balance;max-width:20ch}
+h1 .plus{color:var(--accent-ink)}
+.lead{font-size:1.125rem;color:var(--muted);max-width:60ch}
+.status{display:inline-flex;align-items:center;gap:8px;justify-self:start;padding:6px 14px 6px 8px;border-radius:999px;background:var(--ok-bg);color:var(--ok);font-weight:600;font-size:.9375rem;text-decoration:none}
+.status:hover{text-decoration:underline}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:8px;border-top:2px solid var(--fg)}
+.stats>div{padding:14px 16px 2px;border-left:1px solid var(--line);min-width:0}
+.stats>div:first-child{border-left:0;padding-left:0}
+.stats dt{color:var(--muted)}
+.stats dd{font-family:var(--font-display);font-weight:700;font-size:clamp(1.9rem,3.6vw,2.6rem);line-height:1.05;font-variant-numeric:tabular-nums}
+.stats small{display:block;font-family:var(--font-body);font-weight:500;font-size:.875rem;color:var(--muted);line-height:1.35;margin-top:4px}
+
+/* Grilla principal */
+.layout{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"parts" "summary" "compat" "power";gap:40px}
+.parts{grid-area:parts;min-width:0}
+.summary{grid-area:summary;min-width:0}
+.compat{grid-area:compat;min-width:0}
+.power{grid-area:power;min-width:0}
+@media (min-width:980px){
+  .layout{grid-template-columns:minmax(0,1fr) 340px;grid-template-areas:"parts summary" "compat summary" "power summary";column-gap:36px;grid-template-rows:auto auto 1fr}
+  .summary{position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px);align-self:start}
+}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;margin-bottom:14px}
+h2{font-family:var(--font-display);font-weight:700;font-size:1.875rem;line-height:1.1;text-wrap:balance}
+.sec-lead{color:var(--muted);max-width:62ch;margin-bottom:18px}
+.btn-text{background:none;border:0;padding:4px 0;font-weight:600;font-size:.9375rem;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+
+/* Componentes */
+.parts-list{display:grid;gap:14px}
+.part{
+  display:grid;grid-template-columns:136px minmax(0,1fr);
+  grid-template-areas:"media head" "media body" "media foot" "specs specs";
+  column-gap:22px;row-gap:10px;padding:18px;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);
+  scroll-margin-top:20px;transition:border-color .2s,box-shadow .2s;
+}
+.part:target{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 45%,transparent)}
+.part-media{
+  grid-area:media;align-self:start;width:136px;max-width:100%;aspect-ratio:1;
+  display:grid;place-items:center;overflow:hidden;
+  border-radius:8px;border:0;padding:0;background:var(--surface-2);color:var(--muted);
+}
+.part-media svg{width:74%;height:auto;display:block}
+.part-media.has-photo{background:var(--photo-bg);border:1px solid var(--line);cursor:zoom-in}
+.part-media img{width:100%;height:100%;object-fit:contain;padding:8px;display:block}
+.part-head{grid-area:head;display:grid;gap:3px;min-width:0}
+.part-cat{color:var(--accent-ink)}
+.part-name{font-family:var(--font-display);font-weight:700;font-size:1.5rem;line-height:1.1;text-wrap:balance}
+.part-code{font-family:var(--font-mono);font-size:.8125rem;color:var(--muted);overflow-wrap:anywhere}
+.part-body{grid-area:body;display:grid;gap:10px;min-width:0}
+.part-lead{color:var(--muted);max-width:62ch}
+.keys{display:flex;flex-wrap:wrap;gap:6px}
+.keys li{font-size:.875rem;font-weight:500;padding:3px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg)}
+.part-foot{grid-area:foot;display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;padding-top:2px}
+.spec-toggle{
+  display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+  font-weight:600;font-size:.9375rem;background:transparent;
+  border:1px solid var(--line);border-radius:999px;padding:6px 14px 6px 14px;
+}
+.spec-toggle:hover{border-color:var(--fg)}
+.spec-toggle svg{transition:transform .2s}
+.spec-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+.part-price{font-family:var(--font-display);font-weight:700;font-size:1.375rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbd{font-family:var(--font-body);font-weight:500;font-size:.9375rem;color:var(--muted)}
+.specs{grid-area:specs;display:grid;grid-template-columns:minmax(0,15rem) minmax(0,1fr);margin-top:6px;border-top:1px solid var(--line)}
+.specs dt,.specs dd{padding:9px 0;border-bottom:1px solid var(--line);font-size:.9375rem}
+.specs dt{color:var(--muted);padding-right:16px}
+.specs dd{font-weight:500;overflow-wrap:anywhere}
+.specs>:nth-last-child(-n+2){border-bottom:0}
+
+/* Resumen */
+.sum-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;display:grid;gap:16px}
+.sum-list li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
+.sum-list li:first-child{padding-top:0}
+.sum-list a{display:grid;min-width:0;text-decoration:none}
+.sum-list a:hover .sum-name{text-decoration:underline}
+.sum-cat{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.sum-name{font-weight:600;font-size:.9375rem;overflow-wrap:anywhere}
+.sum-price{font-weight:600;font-size:.9375rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sum-price .tbd{font-size:.875rem}
+.sum-card .pins{margin-top:0}
+.total{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.total strong{font-family:var(--font-display);font-weight:700;font-size:2.1rem;line-height:1;font-variant-numeric:tabular-nums}
+.total strong.is-tbd{font-size:1.375rem;color:var(--muted)}
+.total-note{font-size:.875rem;color:var(--muted);margin-top:-8px}
+.terms{display:grid;gap:7px}
+.terms li{display:flex;align-items:center;gap:9px;font-size:.9375rem}
+.terms svg{color:var(--ok);flex:none}
+.actions{display:grid;gap:8px}
+.btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;padding:12px 16px;border-radius:8px;border:1px solid transparent;font-weight:600;font-size:1rem;text-decoration:none;cursor:pointer}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{filter:brightness(.95)}
+.btn-ghost{background:transparent;border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--fg)}
+.contact{display:grid;gap:2px;padding-top:14px;border-top:1px solid var(--line);font-size:.9375rem;color:var(--muted)}
+.c-name{font-family:var(--font-display);font-weight:700;letter-spacing:.08em;color:var(--fg);font-size:1.0625rem}
+.c-phone{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:4px;color:var(--fg);font-weight:600;font-variant-numeric:tabular-nums}
+.btn-mini{font-size:.8125rem;font-weight:600;padding:3px 11px;border-radius:999px;border:1px solid var(--line);background:transparent;cursor:pointer}
+.btn-mini:hover{border-color:var(--fg)}
+
+/* Compatibilidad */
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px;border-top:1px solid var(--line)}
+.checks li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.ck{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--ok-bg);color:var(--ok)}
+.ck-t{font-weight:600}
+.ck-d{color:var(--muted);font-size:.9375rem}
+
+/* Consumo */
+.meter-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:16px}
+.meter-wrap{position:relative;padding-top:30px}
+.marker{position:absolute;top:24px;bottom:22px;width:2px;background:var(--fg);transform:translateX(-1px)}
+.marker span{position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--font-display);font-weight:700;font-size:1rem;line-height:1}
+.meter{display:flex;height:34px;border-radius:6px;overflow:hidden;background:var(--seg-free)}
+.seg{height:100%}
+.seg.gpu{background:var(--seg-gpu)}
+.seg.cpu{background:var(--seg-cpu)}
+.seg.rest{background:var(--seg-rest)}
+.seg.free{background:repeating-linear-gradient(135deg,var(--line) 0 2px,transparent 2px 9px)}
+.scale{position:relative;height:22px;margin-top:4px;font-size:.8125rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.scale span{position:absolute;top:4px;transform:translateX(-50%);white-space:nowrap}
+.scale span:first-child{transform:none}
+.scale span:last-child{transform:translateX(-100%)}
+.legend{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px 16px}
+.legend li{display:grid;grid-template-columns:12px minmax(0,1fr);column-gap:8px;align-items:start;font-size:.9375rem}
+.legend b{grid-column:2;font-family:var(--font-display);font-size:1.25rem;font-variant-numeric:tabular-nums}
+.sw{width:12px;height:12px;border-radius:3px;margin-top:5px}
+.sw.gpu{background:var(--seg-gpu)}
+.sw.cpu{background:var(--seg-cpu)}
+.sw.rest{background:var(--seg-rest)}
+.sw.free{background:repeating-linear-gradient(135deg,var(--muted) 0 2px,transparent 2px 4px);outline:1px solid var(--line)}
+.fine{font-size:.8125rem;color:var(--muted);max-width:70ch}
+
+/* Pie */
+.foot{margin-top:64px}
+.foot .pins{margin:0 0 22px}
+.foot-in{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 40px}
+.foot-in p{color:var(--muted)}
+.foot-in .c-name{font-size:1.375rem;color:var(--fg)}
+.foot-in .big{color:var(--fg)}
+.big{font-family:var(--font-display);font-weight:700;font-size:1.875rem;line-height:1.1;color:var(--fg);font-variant-numeric:tabular-nums}
+.foot .fine{width:100%}
+
+/* Aviso y visor de fotos */
+.toast{
+  position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:50;
+  transform:translate(-50%,16px);opacity:0;pointer-events:none;
+  background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:8px;font-weight:600;
+  max-width:calc(100% - 32px);transition:opacity .2s,transform .2s;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.overlay{
+  position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:var(--scrim);
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));
+}
+.sheet{width:100%;max-width:720px;background:var(--surface);border-radius:12px;padding:16px;display:grid;gap:12px;max-height:100%;overflow:auto}
+.sheet-img{background:var(--photo-bg);border-radius:8px;display:grid;place-items:center}
+.sheet-img img{width:100%;max-height:68vh;object-fit:contain}
+.sheet-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sheet textarea{width:100%;min-height:220px;font:inherit;font-size:.9375rem;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+
+@media (max-width:640px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats>div:nth-child(3){border-left:0;padding-left:0}
+  .stats>div:nth-child(n+3){border-top:1px solid var(--line)}
+  .checks{grid-template-columns:minmax(0,1fr)}
+  .legend{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:600px){
+  .part{grid-template-columns:76px minmax(0,1fr);grid-template-areas:"media head" "body body" "foot foot" "specs specs";column-gap:14px;padding:14px}
+  .part-media{width:76px}
+  .part-name{font-size:1.3rem}
+  .specs{grid-template-columns:minmax(0,42%) minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important}
+}
+</style>
+
+<header class="top wrap">
+  <div class="top-in">
+    <div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>SLOT TECH</span></div>
+    <div class="doc-meta">
+      <span>Presupuesto del <b>19/10/2026</b></span>
+      <span>Presupuesto Toffoletti</span>
+    </div>
+  </div>
+  <div class="pins" aria-hidden="true"></div>
+</header>
+
+<section class="hero wrap" aria-labelledby="build-name">
+  <p class="label eyebrow">Presupuesto de armado</p>
+  <h1 id="build-name">PC Gamer Ryzen 9 5900XT <span class="plus">+</span> RTX 5070 Ti</h1>
+  <p class="lead">Equipo de alto rendimiento para jugar en 1440p y 4K, transmitir en vivo y editar video. Cada componente fue revisado para que funcione con los demás.</p>
+  <a class="status" href="#compat">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+    Compatibilidad verificada
+  </a>
+  <dl class="stats">
+    <div><dt class="label">Procesador</dt><dd>16 núcleos<small>32 hilos, hasta 4,8 GHz</small></dd></div>
+    <div><dt class="label">Placa de video</dt><dd>16 GB<small>GDDR7 con DLSS 4</small></dd></div>
+    <div><dt class="label">Memoria RAM</dt><dd>32 GB<small>DDR4 3200 MHz</small></dd></div>
+    <div><dt class="label">Fuente</dt><dd>850 W<small>80 PLUS Gold, modular</small></dd></div>
+  </dl>
+</section>
+
+<main class="layout wrap">
+  <section class="parts" aria-labelledby="parts-h">
+    <div class="sec-head">
+      <h2 id="parts-h">Componentes</h2>
+      <button type="button" class="btn-text" id="toggle-all">Ver todas las fichas técnicas</button>
+    </div>
+    <div class="parts-list" id="parts-list"></div>
+  </section>
+
+  <aside class="summary" aria-labelledby="sum-h">
+    <div class="sum-card">
+      <h2 id="sum-h">Resumen</h2>
+      <ul class="sum-list" id="sum-list"></ul>
+      <div class="pins" aria-hidden="true"></div>
+      <div class="total"><span class="label">Total</span><strong id="total">A confirmar</strong></div>
+      <p class="total-note" id="total-note">Precios en guaraníes (Gs.)</p>
+      <ul class="terms">
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Entrega de hasta 48 horas</li>
+        <!--<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Crédito a 30 días</li> -->
+        <!-- <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Oferta válida por 5 días</li> -->
+      </ul>
+      <div class="actions">
+        <a class="btn btn-primary" id="wa-link" href="https://wa.me/595991887476" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8.2 19z"/><path d="M9.5 9.5c0 3 2 5 5 5l1-1.4-2-1-1 .9c-1-.4-1.9-1.3-2.3-2.3l.9-1-1-2z"/></svg>
+          Consultar por WhatsApp
+        </a>
+        <button type="button" class="btn btn-ghost" id="copy-sum">Copiar resumen del presupuesto</button>
+      </div>
+      <div class="contact">
+        <p class="c-name">SLOT TECH</p>
+        <p>Ciruela c/ Mirasoles, Laurelty, Luque</p>
+        <p class="c-phone"><span>0991 887 476</span><button type="button" class="btn-mini" id="copy-phone">Copiar número</button></p>
+      </div>
+    </div>
+  </aside>
+
+  <section class="compat" id="compat" aria-labelledby="compat-h">
+    <div class="sec-head"><h2 id="compat-h">Compatibilidad verificada</h2></div>
+    <p class="sec-lead">Antes de armar el presupuesto revisamos medidas, sockets y consumo de cada pieza.</p>
+    <ul class="checks" id="checks"></ul>
+  </section>
+
+  <section class="power" aria-labelledby="power-h">
+    <div class="sec-head"><h2 id="power-h">Consumo estimado</h2></div>
+    <p class="sec-lead">A plena carga el equipo consume cerca de 500 W. La fuente de 850 W deja unos 350 W de margen y trabaja cerca del 60 % de su capacidad, el rango donde una fuente 80 PLUS Gold es más eficiente.</p>
+    <div class="meter-box">
+      <div class="meter-wrap">
+        <div class="marker" style="left:59.06%"><span>≈ 502 W</span></div>
+        <div class="meter" role="img" aria-label="Consumo estimado a plena carga: placa de video 300 W, procesador 142 W, resto del equipo 60 W. Total 502 W de una fuente de 850 W, con 348 W de margen.">
+          <div class="seg gpu" style="width:35.29%"></div>
+          <div class="seg cpu" style="width:16.71%"></div>
+          <div class="seg rest" style="width:7.06%"></div>
+          <div class="seg free" style="width:40.94%"></div>
+        </div>
+        <div class="scale" aria-hidden="true">
+          <span style="left:0">0</span>
+          <span style="left:23.53%">200</span>
+          <span style="left:47.06%">400</span>
+          <span style="left:70.59%">600</span>
+          <span style="left:100%">850 W</span>
+        </div>
+      </div>
+      <ul class="legend">
+        <li><i class="sw gpu"></i><span>Placa de video</span><b>300 W</b></li>
+        <li><i class="sw cpu"></i><span>Procesador</span><b>142 W</b></li>
+        <li><i class="sw rest"></i><span>Resto del equipo</span><b>≈ 60 W</b></li>
+        <li><i class="sw free"></i><span>Margen libre</span><b>≈ 348 W</b></li>
+      </ul>
+      <p class="fine">Estimación con el consumo máximo de la placa de video (300 W) y el límite de potencia del procesador (142 W), más unos 60 W de placa madre, memoria, water cooler y almacenamiento. Para esta placa de video se recomienda una fuente de 750 W.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot wrap">
+  <div class="pins" aria-hidden="true"></div>
+  <div class="foot-in">
+    <div>
+      <p class="c-name">SLOT TECH</p>
+      <p>Ciruela c/ Mirasoles, Laurelty, Luque</p>
+    </div>
+    <div>
+      <p>WhatsApp y llamadas</p>
+      <p class="big">0991 887 476</p>
+    </div>
+    <p class="fine">Presupuesto emitido el 19/10/2026. Precios en guaraníes (Gs.).</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="overlay" id="viewer" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="viewer-cap">
+    <div class="sheet-img"><img id="viewer-img" alt=""></div>
+    <div class="sheet-row"><p id="viewer-cap" class="ck-t"></p><button type="button" class="btn-mini" data-close>Cerrar</button></div>
+  </div>
+</div>
+<div class="overlay" id="manual" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="manual-t">
+    <div class="sheet-row"><p id="manual-t" class="ck-t">Seleccioná el texto y copialo</p><button type="button" class="btn-mini" data-close>Cerrar</button></div>
+    <textarea id="manual-text" readonly></textarea>
+  </div>
+</div>
+
+<script>
+(() => {
+  const BUILD = {
+    name: "PC Gamer Ryzen 9 5900XT + RTX 5070 Ti",
+    date: "19/10/2026",
+    phone: "0991 887 476",
+    address: "Ciruela c/ Mirasoles, Laurelty, Luque"
+  };
+
+  // Precios en guaraníes (número sin puntos) y foto de cada producto (ruta relativa). null = pendiente.
+  const PARTS = [
+    {
+      id: "cpu", icon: "cpu", cat: "Procesador", short: "AMD Ryzen 9 5900XT",
+      name: "AMD Ryzen 9 5900XT", code: "100-100001581WOF · Socket AM4",
+      lead: "16 núcleos para jugar, transmitir y editar video al mismo tiempo sin que el equipo se frene.",
+      keys: ["16 núcleos / 32 hilos", "Hasta 4,8 GHz", "72 MB de caché"],
+      specs: [
+        ["Núcleos / hilos", "16 / 32"],
+        ["Frecuencia base", "3,3 GHz"],
+        ["Frecuencia máxima", "Hasta 4,8 GHz"],
+        ["Caché", "72 MB (8 MB L2 + 64 MB L3)"],
+        ["Socket", "AM4"],
+        ["TDP", "105 W"],
+        ["Memoria compatible", "DDR4 hasta 3200 MHz, doble canal"],
+        ["PCI Express", "4.0"],
+        ["Multiplicador", "Desbloqueado"],
+        ["Gráficos integrados", "No, usa la placa de video"],
+        ["Cooler incluido", "No, se usa el water cooler de este presupuesto"]
+      ],
+      img: "https://www.topdekinformatica.com.br/img/g/IMG_280772_1.JPG?v=1792434338", price: null
+    },
+    {
+      id: "gpu", icon: "gpu", cat: "Placa de video", short: "RTX 5070 Ti EAGLE OC ICE",
+      name: "GIGABYTE GeForce RTX 5070 Ti EAGLE OC ICE 16 GB", code: "GV-N507TEAGLEOC ICE-16GD",
+      lead: "Serie RTX 50 con 16 GB de memoria GDDR7 y DLSS 4, para jugar en 1440p y 4K con trazado de rayos.",
+      keys: ["16 GB GDDR7", "DLSS 4 con Multi Frame Generation", "Edición blanca ICE"],
+      specs: [
+        ["Chip gráfico", "NVIDIA GeForce RTX 5070 Ti, arquitectura Blackwell"],
+        ["Núcleos CUDA", "8.960"],
+        ["Frecuencia boost (OC)", "2.542 MHz"],
+        ["Memoria", "16 GB GDDR7, bus de 256 bits"],
+        ["Interfaz", "PCI Express 5.0 x16"],
+        ["Salidas", "3 × DisplayPort 2.1a, 1 × HDMI 2.1b"],
+        ["Resolución máxima", "7680 × 4320 (8K), hasta 4 monitores"],
+        ["Refrigeración", "WINDFORCE con 3 ventiladores"],
+        ["Consumo", "300 W"],
+        ["Conector de energía", "1 × 16 pines"],
+        ["Fuente recomendada", "750 W"],
+        ["Medidas", "304 × 126 × 50 mm, 2 slots"],
+        ["Color", "Blanco"]
+      ],
+      img: "https://static.gigabyte.com/StaticFile/Image/Global/2c9319cda29065cc30ac66c4838790a6/ProductRemoveBg/43906/webp/670", price: null
+    },
+    {
+      id: "ram", icon: "ram", cat: "Memoria RAM", short: "ADATA XPG 32 GB DDR4",
+      name: "ADATA XPG 32 GB (2 × 16 GB) DDR4 3200 MHz", code: "DDR4-3200 · CL16 · Kit 2 × 16 GB",
+      lead: "32 GB en doble canal: espacio de sobra para juegos actuales, streaming y varios programas abiertos.",
+      keys: ["32 GB (2 × 16 GB)", "3200 MHz", "Doble canal"],
+      specs: [
+        ["Capacidad", "32 GB, kit de 2 módulos de 16 GB"],
+        ["Tipo", "DDR4 DIMM"],
+        ["Velocidad", "3200 MHz (PC4-25600)"],
+        ["Latencia", "CL16"],
+        ["Modo", "Doble canal"],
+        ["Perfil XMP", "Activa los 3200 MHz desde la BIOS"],
+        ["Disipador de calor", "Incluido"]
+      ],
+      img: "https://www.topdekinformatica.com.br/img/g/IMG_305490_2.JPG?v=1792427603", price: null
+    },
+    {
+      id: "mb", icon: "mb", cat: "Placa madre", short: "ASRock B550M WiFi",
+      name: "ASRock B550M WiFi", code: "Socket AM4 · Chipset B550 · Micro-ATX",
+      lead: "La base del equipo, con Wi-Fi 6E y Bluetooth integrados, así no hace falta comprar adaptadores.",
+      keys: ["Wi-Fi 6E + Bluetooth 5.2", "PCIe 4.0", "M.2 Gen4"],
+      specs: [
+        ["Socket / chipset", "AM4 / AMD B550"],
+        ["Formato", "Micro-ATX (24,4 × 24,4 cm)"],
+        ["Memoria", "4 slots DDR4, doble canal, hasta 128 GB, XMP"],
+        ["Slot de video", "PCIe 4.0 x16"],
+        ["Otros slots", "1 × PCIe 3.0 x16 (modo x4), 1 × PCIe 3.0 x1"],
+        ["Almacenamiento", "1 × M.2 PCIe Gen4 x4, 4 × SATA3 (RAID 0/1/10)"],
+        ["Conectividad", "Wi-Fi 6E (2,4 / 5 / 6 GHz), Bluetooth 5.2, LAN Gigabit"],
+        ["Audio", "Realtek ALC1220, 7.1 canales, Nahimic"],
+        ["USB traseros", "4 × USB 3.2 Gen1, 2 × USB 2.0"],
+        ["Alimentación", "8 fases, PCB de cobre de 2 oz"],
+        ["Iluminación", "2 conectores RGB (12 V) y 2 ARGB (5 V)"]
+      ],
+      img: "https://www.topdekinformatica.com.br/img/g/IMG_428574_1.JPG?v=1792440247", price: null
+    },
+    {
+      id: "aio", icon: "aio", cat: "Refrigeración líquida", short: "darkFlash Symphony TR360",
+      name: "Aigo darkFlash Symphony TR360", code: "AIO 360 mm · ARGB",
+      lead: "Water cooler de 360 mm que mantiene fresco al Ryzen 9 en sesiones largas de juego o render.",
+      keys: ["Radiador de 360 mm", "3 ventiladores ARGB", "Bomba con espejo infinito"],
+      specs: [
+        ["Tipo", "Refrigeración líquida AIO"],
+        ["Radiador", "360 mm (394 × 120 × 27 mm)"],
+        ["Ventiladores", "3 × 120 mm, de 800 a 1800 RPM"],
+        ["Flujo de aire", "30 a 70 CFM"],
+        ["Ruido", "28 a 35 dBA"],
+        ["Bomba", "2400 RPM, cabezal con efecto espejo infinito"],
+        ["Iluminación", "ARGB, se sincroniza con la placa madre"],
+        ["Sockets compatibles", "AMD AM4 y AM5, además de Intel"]
+      ],
+      img: "https://www.topdekinformatica.com.br/img/g/IMG_204195_3.JPG?v=1792430768", price: null
+    },
+    {
+      id: "psu", icon: "psu", cat: "Fuente de poder", short: "GIGABYTE UD850GM",
+      name: "GIGABYTE GP-UD850GM 850 W 80 PLUS Gold", code: "GP-UD850GM · Full modular",
+      lead: "Energía estable y eficiente, con margen de sobra para la placa de video y futuras mejoras.",
+      keys: ["850 W", "80 PLUS Gold", "Totalmente modular"],
+      specs: [
+        ["Potencia", "850 W"],
+        ["Certificación", "80 PLUS Gold, 90 % de eficiencia en carga típica"],
+        ["Cableado", "Totalmente modular, cables planos negros"],
+        ["Ventilador", "120 mm con rodamiento hidráulico"],
+        ["Capacitores", "Japoneses"],
+        ["Protecciones", "OVP, OPP, SCP, UVP, OCP y OTP"],
+        ["Conectores", "24 pines ATX, 2 × CPU 4+4, 4 × PCIe 6+2, 8 × SATA, 3 × Molex"],
+        ["Riel de +12 V", "Único"],
+        ["Medidas", "150 × 140 × 86 mm"]
+      ],
+      img: "https://www.topdekinformatica.com.br/img/g/IMG_332625_1.JPG?v=1792438697", price: null
+    },
+    {
+      id: "case", icon: "case", cat: "Gabinete", short: "darkFlash DS900G",
+      name: "Aigo darkFlash DS900G", code: "Mid-Tower · ATX / Micro-ATX / Mini-ITX",
+      lead: "Mid-Tower con vidrio templado curvo para lucir el armado, con lugar para el radiador de 360 mm arriba.",
+      keys: ["Vidrio templado curvo", "Radiador de 360 mm", "Hasta 10 ventiladores"],
+      specs: [
+        ["Formato", "Mid-Tower"],
+        ["Placas compatibles", "ATX, Micro-ATX y Mini-ITX"],
+        ["Medidas", "454 × 218 × 434 mm (alto × ancho × profundidad)"],
+        ["Materiales", "Acero SPCC de 0,5 mm y vidrio templado curvo"],
+        ["Ventiladores", "Hasta 10 × 120 mm: 3 arriba, 3 laterales, 3 abajo y 1 atrás (se venden aparte)"],
+        ["Radiadores", "Hasta 360 mm arriba y 240 mm al costado"],
+        ["Largo máximo de placa de video", "425 mm"],
+        ["Altura máxima de cooler", "170 mm"],
+        ["Bahías", "2 × 3,5″ y 2 × 2,5″"],
+        ["Panel frontal", "USB 3.0, 2 × USB 2.0, audio HD y botón de iluminación"],
+        ["Filtros de polvo", "Magnéticos"]
+      ],
+      img: "https://www.topdekinformatica.com.br/img/g/IMG_333806_3.JPG?v=1792441174", price: null
+    }
+  ];
+
+  const CHECKS = [
+    ["Procesador y placa madre", "Ambos usan socket AM4."],
+    ["Memoria", "Kit DDR4 3200 MHz en una placa con 4 slots DDR4 y soporte XMP."],
+    ["Placa de video y gabinete", "La tarjeta mide 304 mm y el gabinete admite hasta 425 mm."],
+    ["Water cooler y gabinete", "El radiador de 360 mm va en el soporte superior, que admite hasta 360 mm."],
+    ["Water cooler y procesador", "El TR360 es compatible con socket AM4."],
+    ["Fuente y placa de video", "850 W frente a los 750 W recomendados para la RTX 5070 Ti."],
+    ["Formato", "Placa Micro-ATX en un gabinete que admite ATX, Micro-ATX y Mini-ITX."],
+    ["Iluminación", "Las luces ARGB del water cooler se enchufan en los conectores de 5 V de la placa."]
+  ];
+
+  const S = 'fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"';
+  const ICONS = {
+    cpu: `<svg viewBox="0 0 120 120" ${S}><rect x="26" y="26" width="68" height="68" rx="7"/><rect x="38" y="38" width="44" height="44" rx="4"/><path d="M36 15v11M48 15v11M60 15v11M72 15v11M84 15v11M36 94v11M48 94v11M60 94v11M72 94v11M84 94v11M15 36h11M15 48h11M15 60h11M15 72h11M15 84h11M94 36h11M94 48h11M94 60h11M94 72h11M94 84h11"/><path d="M31 89V79l10 10z" fill="var(--accent)" stroke="none"/></svg>`,
+    gpu: `<svg viewBox="0 0 120 120" ${S}><path d="M11 28v62M11 32h7M11 86h7"/><rect x="18" y="32" width="92" height="50" rx="6"/><circle cx="37" cy="57" r="12"/><circle cx="64" cy="57" r="12"/><circle cx="91" cy="57" r="12"/><circle cx="37" cy="57" r="6" stroke-dasharray="3 3"/><circle cx="64" cy="57" r="6" stroke-dasharray="3 3"/><circle cx="91" cy="57" r="6" stroke-dasharray="3 3"/><rect x="34" y="84" width="46" height="7" rx="1.5" fill="var(--accent)" stroke="none"/></svg>`,
+    ram: `<svg viewBox="0 0 120 120" ${S}><rect x="12" y="26" width="96" height="24" rx="3"/><path d="M21 33h13v10H21zM40 33h13v10H40zM67 33h13v10H67zM86 33h13v10H86z"/><rect x="16" y="52" width="40" height="5" rx="1" fill="var(--accent)" stroke="none"/><rect x="62" y="52" width="42" height="5" rx="1" fill="var(--accent)" stroke="none"/><rect x="12" y="66" width="96" height="24" rx="3"/><path d="M21 73h13v10H21zM40 73h13v10H40zM67 73h13v10H67zM86 73h13v10H86z"/><rect x="16" y="92" width="40" height="5" rx="1" fill="var(--accent)" stroke="none"/><rect x="62" y="92" width="42" height="5" rx="1" fill="var(--accent)" stroke="none"/></svg>`,
+    mb: `<svg viewBox="0 0 120 120" ${S}><rect x="16" y="14" width="88" height="92" rx="4"/><rect x="28" y="26" width="30" height="30" rx="2"/><rect x="37" y="35" width="12" height="12" rx="1"/><path d="M70 24v34M77 24v34M84 24v34M91 24v34"/><rect x="26" y="68" width="66" height="6" rx="1.5" fill="var(--accent)" stroke="none"/><path d="M26 84h44M26 96h30"/><rect x="78" y="82" width="14" height="14" rx="2"/></svg>`,
+    aio: `<svg viewBox="0 0 120 120" ${S}><rect x="10" y="16" width="100" height="38" rx="4"/><circle cx="30" cy="35" r="12"/><circle cx="60" cy="35" r="12"/><circle cx="90" cy="35" r="12"/><circle cx="30" cy="35" r="3"/><circle cx="60" cy="35" r="3"/><circle cx="90" cy="35" r="3"/><path d="M46 54c0 12 5 18 9 23M74 54c0 12-5 18-9 23"/><circle cx="60" cy="92" r="16"/><circle cx="60" cy="92" r="9" stroke="var(--accent)"/><circle cx="60" cy="92" r="3.5" stroke="var(--accent)"/></svg>`,
+    psu: `<svg viewBox="0 0 120 120" ${S}><rect x="12" y="26" width="96" height="68" rx="6"/><circle cx="46" cy="60" r="24"/><circle cx="46" cy="60" r="15"/><circle cx="46" cy="60" r="5"/><path d="M46 36v48M22 60h48"/><rect x="82" y="36" width="16" height="9" rx="1.5" fill="var(--accent)" stroke="none"/><rect x="82" y="51" width="16" height="9" rx="1.5"/><rect x="82" y="66" width="16" height="9" rx="1.5"/><path d="M84 84h12"/></svg>`,
+    case: `<svg viewBox="0 0 120 120" ${S}><rect x="26" y="8" width="68" height="98" rx="5"/><path d="M48 16h38v82H48c-8 0-14-6-14-14V30c0-8 6-14 14-14z"/><circle cx="52" cy="28" r="4.5"/><circle cx="64" cy="28" r="4.5"/><circle cx="76" cy="28" r="4.5"/><rect x="44" y="58" width="36" height="8" rx="2"/><path d="M42 90h40" stroke="var(--accent)" stroke-width="3.5"/><path d="M40 46l12-12M40 60l22-22" stroke-opacity=".35"/><path d="M34 106v5M86 106v5"/></svg>`
+  };
+
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const gs = n => "Gs. " + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  const chev = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  const tick = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  const $ = id => document.getElementById(id);
+
+  function partHTML(p) {
+    const media = p.img
+      ? `<button type="button" class="part-media has-photo" data-zoom="${p.id}" aria-label="Ampliar foto de ${esc(p.name)}"><img src="${esc(p.img)}" alt="${esc(p.name)}"></button>`
+      : `<div class="part-media" aria-hidden="true">${ICONS[p.icon] || ""}</div>`;
+    const price = p.price ? gs(p.price) : '<span class="tbd">Precio a confirmar</span>';
+    return `<article class="part" id="p-${p.id}">
+      ${media}
+      <div class="part-head"><p class="label part-cat">${esc(p.cat)}</p><h3 class="part-name">${esc(p.name)}</h3><p class="part-code">${esc(p.code)}</p></div>
+      <div class="part-body"><p class="part-lead">${esc(p.lead)}</p><ul class="keys">${p.keys.map(k => `<li>${esc(k)}</li>`).join("")}</ul></div>
+      <div class="part-foot"><button type="button" class="spec-toggle" aria-expanded="false" aria-controls="s-${p.id}"><span>Ver ficha técnica</span>${chev}</button><p class="part-price">${price}</p></div>
+      <dl class="specs" id="s-${p.id}" hidden>${p.specs.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+    </article>`;
+  }
+
+  const total = 15200000;
+
+  $("parts-list").innerHTML = PARTS.map(partHTML).join("");
+  $("sum-list").innerHTML = PARTS.map(p => `<li><a href="#p-${p.id}"><span class="sum-cat">${esc(p.cat)}</span><span class="sum-name">${esc(p.short)}</span></a><span class="sum-price">${p.price ? gs(p.price) : '<span class="tbd">A confirmar</span>'}</span></li>`).join("");
+  $("checks").innerHTML = CHECKS.map(([t, d]) => `<li><span class="ck" aria-hidden="true">${tick}</span><div><p class="ck-t">${esc(t)}</p><p class="ck-d">${esc(d)}</p></div></li>`).join("");
+
+  const totalEl = $("total");
+  totalEl.textContent = gs(total);
+
+  const waText = `Hola Slot Tech, me interesa el presupuesto de la ${BUILD.name}.`;
+  $("wa-link").href = "https://wa.me/595991887476?text=" + encodeURIComponent(waText);
+
+  // Fichas técnicas
+  function setOpen(btn, open) {
+    const dl = $(btn.getAttribute("aria-controls"));
+    dl.hidden = !open;
+    btn.setAttribute("aria-expanded", String(open));
+    btn.querySelector("span").textContent = open ? "Ocultar ficha técnica" : "Ver ficha técnica";
+  }
+  function syncAll() {
+    const btns = [...document.querySelectorAll(".spec-toggle")];
+    const allOpen = btns.every(b => b.getAttribute("aria-expanded") === "true");
+    $("toggle-all").textContent = allOpen ? "Ocultar todas las fichas" : "Ver todas las fichas técnicas";
+  }
+  $("parts-list").addEventListener("click", e => {
+    const btn = e.target.closest(".spec-toggle");
+    if (btn) { setOpen(btn, btn.getAttribute("aria-expanded") !== "true"); syncAll(); return; }
+    const zoom = e.target.closest("[data-zoom]");
+    if (zoom) openViewer(PARTS.find(p => p.id === zoom.dataset.zoom), zoom);
+  });
+  $("toggle-all").addEventListener("click", () => {
+    const btns = [...document.querySelectorAll(".spec-toggle")];
+    const open = !btns.every(b => b.getAttribute("aria-expanded") === "true");
+    btns.forEach(b => setOpen(b, open));
+    syncAll();
+  });
+
+  // Aviso
+  let toastTimer;
+  function toast(msg) {
+    const t = $("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+  }
+
+  // Ventanas (foto ampliada y copia manual)
+  let lastFocus = null;
+  function openOverlay(id, focusEl) {
+    lastFocus = document.activeElement;
+    $(id).hidden = false;
+    (focusEl || $(id).querySelector("[data-close]")).focus();
+  }
+  function closeOverlays() {
+    document.querySelectorAll(".overlay").forEach(o => { o.hidden = true; });
+    if (lastFocus) lastFocus.focus();
+  }
+  function openViewer(p) {
+    if (!p || !p.img) return;
+    $("viewer-img").src = p.img;
+    $("viewer-img").alt = p.name;
+    $("viewer-cap").textContent = p.name;
+    openOverlay("viewer");
+  }
+  document.querySelectorAll(".overlay").forEach(o => o.addEventListener("click", e => {
+    if (e.target === o || e.target.closest("[data-close]")) closeOverlays();
+  }));
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && document.querySelector(".overlay:not([hidden])")) closeOverlays();
+  });
+
+  // Copiar
+  function legacyCopy(text) {
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand("copy");
+      ta.remove();
+      return ok;
+    } catch (err) { return false; }
+  }
+  function copy(text, msg) {
+    const fail = () => {
+      if (legacyCopy(text)) { toast(msg); return; }
+      $("manual-text").value = text;
+      openOverlay("manual", $("manual-text"));
+      $("manual-text").select();
+    };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => toast(msg), fail);
+      else fail();
+    } catch (err) { fail(); }
+  }
+  function summaryText() {
+    const lines = [`*${BUILD.name}*`, `Presupuesto Toffoletti · Slot Tech · ${BUILD.date}`, ""];
+    PARTS.forEach(p => lines.push(`• ${p.cat}: ${p.name}${p.price ? " · " + gs(p.price) : ""}`));
+    lines.push("");
+    lines.push(`*Total: ${gs(total)}*`);
+    lines.push("");
+    lines.push("Entrega inmediata · Crédito a 30 días");
+    lines.push(`Slot Tech · ${BUILD.address} · ${BUILD.phone}`);
+    return lines.join("\n");
+  }
+  $("copy-sum").addEventListener("click", () => copy(summaryText(), "Resumen copiado"));
+  $("copy-phone").addEventListener("click", () => copy(BUILD.phone, "Número copiado"));
+})();
+</script>
+
+</body></html>
