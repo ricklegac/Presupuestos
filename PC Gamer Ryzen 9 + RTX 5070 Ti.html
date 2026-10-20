@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>PC Gamer Ryzen 9 + RTX 5070 Ti</title>
+<title>PC Gamer Ryzen 7 5800X3D + RTX 5070 Ti</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -277,14 +277,14 @@ h2{font-family:var(--font-display);font-weight:700;font-size:1.875rem;line-heigh
 
 <section class="hero wrap" aria-labelledby="build-name">
   <p class="label eyebrow">Presupuesto de armado</p>
-  <h1 id="build-name">PC Gamer Ryzen 9 5900XT <span class="plus">+</span> RTX 5070 Ti</h1>
+  <h1 id="build-name">PC Gamer Ryzen 7 5800X3D <span class="plus">+</span> RTX 5070 Ti</h1>
   <p class="lead">Equipo de alto rendimiento para jugar en 1440p y 4K, transmitir en vivo y editar video. Cada componente fue revisado para que funcione con los demás.</p>
   <a class="status" href="#compat">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
     Compatibilidad verificada
   </a>
   <dl class="stats">
-    <div><dt class="label">Procesador</dt><dd>16 núcleos<small>32 hilos, hasta 4,8 GHz</small></dd></div>
+    <div><dt class="label">Procesador</dt><dd>8 núcleos<small>16 hilos, hasta 4,5 GHz</small></dd></div>
     <div><dt class="label">Placa de video</dt><dd>16 GB<small>GDDR7 con DLSS 4</small></dd></div>
     <div><dt class="label">Memoria RAM</dt><dd>32 GB<small>DDR4 3200 MHz</small></dd></div>
     <div><dt class="label">Fuente</dt><dd>850 W<small>80 PLUS Gold, modular</small></dd></div>
@@ -396,7 +396,7 @@ h2{font-family:var(--font-display);font-weight:700;font-size:1.875rem;line-heigh
 <script>
 (() => {
   const BUILD = {
-    name: "PC Gamer Ryzen 9 5900XT + RTX 5070 Ti",
+    name: "PC Gamer Ryzen 7 5800X3D + RTX 5070 Ti",
     date: "19/10/2026",
     phone: "0991 887 476",
     address: "Ciruela c/ Mirasoles, Laurelty, Luque"
@@ -405,15 +405,15 @@ h2{font-family:var(--font-display);font-weight:700;font-size:1.875rem;line-heigh
   // Precios en guaraníes (número sin puntos) y foto de cada producto (ruta relativa). null = pendiente.
   const PARTS = [
     {
-      id: "cpu", icon: "cpu", cat: "Procesador", short: "AMD Ryzen 9 5900XT",
-      name: "AMD Ryzen 9 5900XT", code: "100-100001581WOF · Socket AM4",
-      lead: "16 núcleos para jugar, transmitir y editar video al mismo tiempo sin que el equipo se frene.",
-      keys: ["16 núcleos / 32 hilos", "Hasta 4,8 GHz", "72 MB de caché"],
+      id: "cpu", icon: "cpu", cat: "Procesador", short: "AMD Ryzen 7 5800X3D",
+      name: "AMD Ryzen 7 5800X3D", code: "100-100000651WOF · Socket AM4",
+      lead: "8 núcleos con 3D V-Cache para un rendimiento excepcional en juegos y tareas exigentes.",
+      keys: ["8 núcleos / 16 hilos", "Hasta 4,5 GHz", "100 MB de caché"],
       specs: [
-        ["Núcleos / hilos", "16 / 32"],
-        ["Frecuencia base", "3,3 GHz"],
-        ["Frecuencia máxima", "Hasta 4,8 GHz"],
-        ["Caché", "72 MB (8 MB L2 + 64 MB L3)"],
+        ["Núcleos / hilos", "8 / 16"],
+        ["Frecuencia base", "3,4 GHz"],
+        ["Frecuencia máxima", "Hasta 4,5 GHz"],
+        ["Caché", "100 MB (4 MB L2 + 96 MB L3)"],
         ["Socket", "AM4"],
         ["TDP", "105 W"],
         ["Memoria compatible", "DDR4 hasta 3200 MHz, doble canal"],
@@ -422,7 +422,7 @@ h2{font-family:var(--font-display);font-weight:700;font-size:1.875rem;line-heigh
         ["Gráficos integrados", "No, usa la placa de video"],
         ["Cooler incluido", "No, se usa el water cooler de este presupuesto"]
       ],
-      img: "https://www.topdekinformatica.com.br/img/g/IMG_280772_1.JPG?v=1792434338", price: null
+      img: "https://www.topdekinformatica.com.br/img/g/IMG_280772_1.JPG?v=1792450148", price: null
     },
     {
       id: "gpu", icon: "gpu", cat: "Placa de video", short: "RTX 5070 Ti EAGLE OC ICE",
@@ -581,7 +581,7 @@ h2{font-family:var(--font-display);font-weight:700;font-size:1.875rem;line-heigh
     </article>`;
   }
 
-  const total = 15200000;
+  const total = 15600000;
 
   $("parts-list").innerHTML = PARTS.map(partHTML).join("");
   $("sum-list").innerHTML = PARTS.map(p => `<li><a href="#p-${p.id}"><span class="sum-cat">${esc(p.cat)}</span><span class="sum-name">${esc(p.short)}</span></a><span class="sum-price">${p.price ? gs(p.price) : '<span class="tbd">A confirmar</span>'}</span></li>`).join("");
