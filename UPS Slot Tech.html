@@ -1,0 +1,518 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>UPS Slot Tech</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Asap:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+/* Layout: ficha técnica de instrumento — encabezado sobrio, tarjetas en grilla de 2,
+   cada una con ilustración, placa de datos monoespaciada y tabla de autonomía. */
+:root{
+  --bg:#F3F3EF;
+  --surface:#FFFFFF;
+  --surface-2:#EAEAE4;
+  --line:#D9D9D1;
+  --fg:#17181A;
+  --muted:#5A5D58;
+  --accent:#D62828;
+  --accent-soft:#F8E2E2;
+  --accent-ink:#A51D1D;
+  --critical:#A51D1D;
+  --shell:#E6E6E0;
+  --shell-dark:#9A9D96;
+  --vent:#D9D9D1;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1011;
+    --surface:#17181A;
+    --surface-2:#202226;
+    --line:#2C2E32;
+    --fg:#ECECE7;
+    --muted:#A1A49E;
+    --accent:#FF5A5F;
+    --accent-soft:#3A1D20;
+    --accent-ink:#FF777A;
+    --critical:#FF777A;
+    --shell:#24262A;
+    --shell-dark:#6D706A;
+    --vent:#2C2E32;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1011;
+  --surface:#17181A;
+  --surface-2:#202226;
+  --line:#2C2E32;
+  --fg:#ECECE7;
+  --muted:#A1A49E;
+  --accent:#FF5A5F;
+  --accent-soft:#3A1D20;
+  --accent-ink:#FF777A;
+  --critical:#FF777A;
+  --shell:#24262A;
+  --shell-dark:#6D706A;
+  --vent:#2C2E32;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:"Asap",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{
+  max-width:1120px;
+  margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+h1,h2,h3{font-family:"Archivo",Arial,sans-serif;text-wrap:balance;margin:0}
+h1{font-size:clamp(2rem,5vw,2.9rem);font-weight:800;letter-spacing:-.02em;line-height:1.08}
+h2{font-size:clamp(1.3rem,3vw,1.6rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.12rem;font-weight:700;letter-spacing:-.005em}
+p{margin:0}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;
+}
+
+/* ---- encabezado ---- */
+header{background:var(--surface);border-bottom:1px solid var(--line)}
+.head-inner{padding-block:40px 32px;display:flex;flex-direction:column;gap:18px}
+.head-top{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.brand{
+  font-family:"Archivo",Arial,sans-serif;font-weight:800;font-size:.95rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--accent);
+}
+.lede{max-width:62ch;color:var(--muted);font-size:1.06rem}
+.head-meta{
+  display:flex;gap:10px;flex-wrap:wrap;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.76rem;
+}
+.head-meta span{
+  border:1px solid var(--line);border-radius:3px;padding:4px 9px;color:var(--muted);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ---- secciones ---- */
+section{padding-block:44px}
+.sec-head{display:flex;flex-direction:column;gap:8px;margin-bottom:24px;max-width:66ch}
+.sec-head p{color:var(--muted)}
+
+/* ---- cómo elegir ---- */
+.guide{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:18px}
+.guide article{
+  background:var(--surface);border:1px solid var(--line);border-radius:4px;
+  padding:20px;display:flex;flex-direction:column;gap:9px;
+}
+.guide h3{font-size:1rem}
+.guide p{font-size:.93rem;color:var(--muted)}
+.guide .key{color:var(--fg);font-weight:600}
+
+/* ---- perfiles de carga ---- */
+.profiles{
+  background:var(--surface-2);border:1px solid var(--line);border-radius:4px;
+  padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;
+}
+.profile{display:flex;flex-direction:column;gap:4px;min-width:0}
+.profile .w{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:1.35rem;font-weight:600;color:var(--accent)}
+.profile .n{font-weight:600;font-size:.95rem}
+.profile .d{font-size:.86rem;color:var(--muted)}
+
+/* ---- tarjetas de producto ---- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:20px}
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:4px;
+  display:flex;flex-direction:column;overflow:hidden;min-width:0;cursor:pointer;
+}
+.card.selected{border-color:var(--accent);border-width:2px}
+.card:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.product-select{
+  border:0;padding:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;
+}
+.product-select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.card-top{display:flex;gap:16px;padding:20px 20px 16px;align-items:flex-start}
+.thumb{
+  flex:0 0 96px;width:96px;background:var(--surface-2);
+  border:1px solid var(--line);border-radius:3px;padding:8px;
+}
+.thumb svg,.thumb img{display:block;width:100%;height:120px;max-width:100%;object-fit:contain}
+.card-id{display:flex;flex-direction:column;gap:6px;min-width:0;flex:1}
+.card-id h3{line-height:1.2}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+.tag{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.7rem;font-weight:500;
+  border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:var(--muted);
+}
+.tag.on{background:var(--accent-soft);border-color:transparent;color:var(--accent);font-weight:600}
+.price{
+  padding:0 20px 16px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;
+}
+.price .gs{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:1.5rem;font-weight:600;
+  letter-spacing:-.01em;
+}
+.price .cur{font-size:.85rem;color:var(--muted);font-weight:500}
+.card-body{padding:0 20px 20px;display:flex;flex-direction:column;gap:16px;flex:1}
+.card-body p{font-size:.93rem}
+.card-body p.use{color:var(--fg)}
+/* tabla de autonomía dentro de la tarjeta */
+.runtime{width:100%;border-collapse:collapse;font-size:.88rem}
+.runtime caption{
+  text-align:left;font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+  padding-bottom:7px;
+}
+.runtime th,.runtime td{padding:6px 0;border-bottom:1px solid var(--line);text-align:left}
+.runtime tr:last-child th,.runtime tr:last-child td{border-bottom:none}
+.runtime th{font-weight:500;color:var(--muted)}
+.runtime td{
+  text-align:right;font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-variant-numeric:tabular-nums;font-weight:500;
+}
+.runtime td.no{color:var(--critical);font-weight:600}
+
+/* ---- tabla comparativa ---- */
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+table.compare{width:100%;border-collapse:collapse;font-size:.9rem;min-width:620px}
+table.compare th,table.compare td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line)}
+table.compare thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.7rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--surface-2);
+  white-space:nowrap;
+}
+table.compare tbody tr:last-child td{border-bottom:none}
+table.compare td.num{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;
+  text-align:right;white-space:nowrap;
+}
+table.compare td.name{font-weight:600}
+table.compare tbody tr{cursor:pointer}
+table.compare tr.selected td{background:var(--accent-soft)}
+table.compare .product-select{width:100%}
+
+/* ---- metodología ---- */
+.method{
+  background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:24px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;
+}
+.method h3{font-size:.98rem;margin-bottom:7px}
+.method p{font-size:.9rem;color:var(--muted)}
+.method .formula{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.82rem;
+  background:var(--surface-2);border-radius:3px;padding:9px 11px;margin-top:9px;color:var(--fg);
+  overflow-x:auto;white-space:nowrap;
+}
+
+footer{background:var(--surface);border-top:1px solid var(--line);margin-top:24px}
+.foot-inner{padding-block:30px 36px;display:flex;flex-direction:column;gap:6px}
+.foot-inner .name{font-family:"Archivo",Arial,sans-serif;font-weight:800;font-size:1.05rem;color:var(--accent)}
+.foot-inner p{font-size:.9rem;color:var(--muted)}
+
+@media (max-width:460px){
+  .card-top{flex-direction:column}
+  .thumb{flex:0 0 auto;width:112px}
+}
+</style>
+
+<header>
+  <div class="wrap head-inner">
+    <div class="head-top">
+      <span class="brand">Slot Tech</span>
+      <span class="eyebrow">Energía de respaldo</span>
+    </div>
+    <h1>UPS con batería para PC</h1>
+    <p class="lede">Ocho equipos de 220 V disponibles, ordenados de menor a mayor precio. Cada ficha indica cuántos minutos aguanta con una carga real, hasta qué PC puede sostener y dónde conviene usarlo.</p>
+    <div class="head-meta">
+      <span>Lista del 21/10/2026</span>
+      <span>Todos 220 V</span>
+    </div>
+  </div>
+</header>
+
+<section class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">Antes de elegir</span>
+    <h2>Tres cosas que definen la compra</h2>
+  </div>
+  <div class="guide">
+    <article>
+      <h3>VA no es lo mismo que W</h3>
+      <p>El <span class="key">VA</span> es el nombre comercial; lo que manda es el <span class="key">W</span>. Un equipo de 500 VA entrega 250 W reales. Si la PC más el monitor pasan de ese número, el UPS corta apenas se va la luz.</p>
+    </article>
+    <article>
+      <h3>La batería define los minutos</h3>
+      <p>Varios modelos de distinto VA llevan <span class="key">la misma batería de 12 V</span>. Subir de 1000 a 1200 VA da más margen de carga, no más autonomía. Para ganar minutos hay que subir amper-hora, no VA.</p>
+    </article>
+    <article>
+      <h3>El UPS no es para seguir trabajando</h3>
+      <p>En esta gama la autonomía va de <span class="key">5 a 20 minutos</span>. Alcanza para guardar el trabajo y apagar bien el equipo, que es lo que evita que se corrompa el disco. Para seguir trabajando horas hace falta otra categoría.</p>
+    </article>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">Perfiles usados en las fichas</span>
+    <h2>Con qué carga se midió</h2>
+    <p>Las tres columnas de autonomía de cada ficha corresponden a estos tres equipos, consumo de monitor incluido.</p>
+  </div>
+  <div class="profiles">
+    <div class="profile">
+      <span class="w">100 W</span>
+      <span class="n">Oficina básica</span>
+      <span class="d">PC con gráficos integrados, SSD, monitor de 19"</span>
+    </div>
+    <div class="profile">
+      <span class="w">150 W</span>
+      <span class="n">Hogar / estudio</span>
+      <span class="d">Ryzen o Core de escritorio con video integrado, monitor de 24"</span>
+    </div>
+    <div class="profile">
+      <span class="w">280 W</span>
+      <span class="n">Con placa de video</span>
+      <span class="d">PC gamer de gama media con GPU dedicada y monitor de 24"</span>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">Catálogo</span>
+    <h2>Los ocho modelos</h2>
+  </div>
+  <div class="cards" id="cards"></div>
+</section>
+
+<section class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">Comparativa</span>
+    <h2>Todo en una tabla</h2>
+  </div>
+  <div class="table-scroll">
+    <table class="compare">
+      <thead>
+        <tr>
+          <th scope="col">Modelo</th>
+          <th scope="col">VA / W</th>
+          <th scope="col">100 W</th>
+          <th scope="col">150 W</th>
+          <th scope="col">280 W</th>
+          <th scope="col">Precio</th>
+        </tr>
+      </thead>
+      <tbody id="compare-body"></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">Letra chica</span>
+    <h2>Cómo se calcularon los tiempos</h2>
+  </div>
+  <div class="method">
+    <div>
+      <h3>El cálculo</h3>
+      <p>De la energía nominal de la batería solo se aprovecha una parte: las baterías de plomo selladas pierden capacidad cuando se descargan rápido, y el inversor consume lo suyo.</p>
+      <div class="formula">minutos = (V × Ah × 0,35 ÷ carga W) × 60</div>
+    </div>
+    <div>
+      <h3>Qué está estimado</h3>
+      <p>La lista no declara los amper-hora de cada batería. Se asumieron los valores típicos de cada categoría: 4,5 Ah en los de 500 VA, 7 Ah en los de 600 y 650 VA, y 9 Ah de 800 VA en adelante. El único confirmado por ficha del fabricante es el Forza NT-1012U, con 12 V 9 Ah.</p>
+    </div>
+    <div>
+      <h3>Onda senoidal simulada</h3>
+      <p>Todos los equipos de esta gama entregan onda senoidal modificada cuando pasan a batería. Algunas fuentes con PFC activo (certificadas 80 Plus) zumban o se apagan al recibirla. Conviene probar el corte de luz en el momento de la entrega.</p>
+    </div>
+    <div>
+      <h3>La batería se gasta</h3>
+      <p>Las baterías selladas duran entre dos y tres años en uso normal y pierden autonomía desde el primer día. Los minutos de esta página corresponden a un equipo nuevo. Pasados dos años, contá con la mitad.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span class="name">Slot Tech</span>
+    <p>Ciruela c/ Mirasoles, Laurelty, Luque</p>
+    <p>0991 887 476</p>
+    <p>Precios sujetos a disponibilidad y a la cotización del día.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Ilustraciones: tres tamaños de gabinete según la clase del equipo.
+  function shell(opts) {
+    var h = opts.h, lcd = opts.lcd, outlets = opts.outlets;
+    var top = 110 - h;
+    var vents = '';
+    for (var i = 0; i < opts.vents; i++) {
+      vents += '<rect x="20" y="' + (top + 34 + i * 9) + '" width="34" height="4" rx="2" fill="var(--vent)"/>';
+    }
+    var plugs = '';
+    for (var j = 0; j < outlets; j++) {
+      plugs += '<rect x="' + (64 + (j % 2) * 15) + '" y="' + (top + 34 + Math.floor(j / 2) * 17) + '" width="11" height="11" rx="2" fill="var(--vent)"/>';
+    }
+    var face = lcd
+      ? '<rect x="20" y="' + (top + 12) + '" width="36" height="15" rx="2" fill="var(--accent-soft)"/>' +
+        '<rect x="24" y="' + (top + 17) + '" width="18" height="5" rx="1" fill="var(--accent)"/>'
+      : '<circle cx="27" cy="' + (top + 19) + '" r="5" fill="var(--accent)"/>' +
+        '<rect x="38" y="' + (top + 17) + '" width="18" height="4" rx="2" fill="var(--vent)"/>';
+    return '<svg viewBox="0 0 100 120" role="img" aria-label="Ilustración del equipo">' +
+      '<rect x="12" y="' + top + '" width="78" height="' + h + '" rx="5" fill="var(--shell)"/>' +
+      '<rect x="12" y="' + top + '" width="78" height="' + h + '" rx="5" fill="none" stroke="var(--shell-dark)" stroke-width="1.5"/>' +
+      '<rect x="16" y="' + (top + 4) + '" width="70" height="' + (h - 8) + '" rx="3" fill="var(--surface)"/>' +
+      face + vents + plugs +
+      '<rect x="20" y="112" width="12" height="6" rx="2" fill="var(--shell-dark)"/>' +
+      '<rect x="70" y="112" width="12" height="6" rx="2" fill="var(--shell-dark)"/>' +
+      '</svg>';
+  }
+
+  var art = {
+    chica: shell({ h: 74, lcd: false, vents: 3, outlets: 4 }),
+    media: shell({ h: 88, lcd: false, vents: 4, outlets: 6 }),
+    grande: shell({ h: 100, lcd: true, vents: 5, outlets: 6 })
+  };
+
+  var gs = function (n) { return n.toLocaleString('es-PY'); };
+
+  var items = [
+    {
+      name: 'Siera UPS500', size: 'chica', precio: 233740,
+      image: 'https://www.topdekinformatica.com.br/img/g/IMG_348980_1.JPG?v=1792668061',
+      va: 500, w: 250, bat: '12 V 4,5 Ah (estimada)',
+      rt: ['8 – 11 min', '6 – 8 min', null],
+      uso: 'El equipo de entrada. Sirve para una PC de oficina con gráficos integrados, una caja registradora o un puesto de recepción con monitor chico.'
+    },
+    {
+      name: 'FTX 600 VA', size: 'chica', precio: 265980,
+      image: 'https://www.topdekinformatica.com.br/img/g/IMG_126222_1.JPG?v=1792664965',
+      va: 600, w: 360, bat: '12 V 7 Ah (estimada)',
+      rt: ['13 – 17 min', '9 – 12 min', '5 – 6 min'],
+      uso: 'El mínimo razonable para una PC de escritorio completa. Por Gs. 32.240 más que el Siera gana 110 W de margen y casi el doble de autonomía.'
+    },
+    {
+      name: 'APS Power 650 VA', size: 'media', precio: 346580,
+      image: 'https://www.topdekinformatica.com.br/img/m/IMG_28783_1.JPG?v=1792675846',
+      va: 650, w: 390, bat: '12 V 7 Ah (estimada)',
+      rt: ['13 – 17 min', '9 – 12 min', '5 – 6 min'],
+      uso: 'Misma batería que el FTX de 600 VA, con 30 W más de capacidad. Marca con presencia en el mercado paraguayo y servicio técnico local.'
+    },
+    {
+      name: 'FTX 800 VA', size: 'media', precio: 354640,
+      image: 'https://www.topdekinformatica.com.br/img/g/IMG_126233_1.JPG?v=1792668503',
+      va: 800, w: 480, bat: '12 V 9 Ah (estimada)',
+      rt: ['18 – 23 min', '12 – 15 min', '7 – 8 min'],
+      uso: 'El punto de equilibrio del catálogo. Aguanta cómodo una PC de trabajo con monitor grande, impresora chica y router en la misma línea.'
+    },
+    {
+      name: 'Siera UPS1000', size: 'media', precio: 419120,
+      image: 'https://www.topdekinformatica.com.br/img/g/IMG_349027_1.JPG?v=1792675160',
+      va: 1000, w: 600, bat: '12 V 9 Ah (estimada)',
+      rt: ['18 – 23 min', '12 – 15 min', '7 – 8 min'],
+      uso: 'Alternativa económica dentro de los 1000 VA. Rinde lo mismo que el FTX de 800 VA y suma unos 120 W de margen.'
+    },
+    {
+      name: 'FTX 1000 VA', size: 'media', precio: 443300,
+      image: 'https://www.topdekinformatica.com.br/img/m/IMG_434505_3.JPG?v=1792672880',
+      va: 1000, w: 600, bat: '12 V 9 Ah (estimada)',
+      rt: ['18 – 23 min', '12 – 15 min', '7 – 8 min'],
+      uso: 'La compra más equilibrada para una PC de escritorio. Los 600 W dejan lugar para el equipo, el monitor, el módem y una impresora, y queda margen si después se le agrega una placa de video.'
+    },
+    {
+      name: 'FTX 1200 VA', size: 'grande', precio: 515840,
+      image: 'https://www.topdekinformatica.com.br/img/g/IMG_349027_1.JPG?v=1792675160',
+      va: 1200, w: 720, bat: '12 V 9 Ah (estimada)',
+      rt: ['18 – 23 min', '12 – 15 min', '7 – 8 min'],
+      uso: 'Para dos puestos de trabajo en la misma línea, o una PC con placa de video más periféricos. Los 720 W son el techo más alto del catálogo.'
+    },
+    {
+      name: 'Forza NT-1012U', size: 'grande', precio: 531960,
+      image: 'https://www.topdekinformatica.com.br/img/g/IMG_23230_3.JPG?v=1792675849',
+      va: 1000, w: 500, bat: '12 V 9 Ah (confirmada por el fabricante)',
+      rt: ['18 – 23 min', '12 – 15 min', null],
+      uso: 'La única marca del catálogo con ficha técnica pública. Trae seis tomas NEMA 5-15R —cinco con batería y una solo con supresor de picos—, puerto RJ-11 para la línea telefónica, 200 joules de protección contra picos y regulador automático de voltaje.'
+    }
+  ];
+
+  var cards = items.map(function (it, index) {
+    var rt = it.rt.map(function (v, i) {
+      var label = ['Oficina · 100 W', 'Hogar · 150 W', 'Con GPU · 280 W'][i];
+      var cell = v === null
+        ? '<td class="no">Supera el límite</td>'
+        : '<td>' + v + '</td>';
+      return '<tr><th scope="row">' + label + '</th>' + cell + '</tr>';
+    }).join('');
+
+    return '<article class="card" data-product-index="' + index + '" aria-current="false">' +
+      '<div class="card-top">' +
+        '<div class="thumb">' + (it.image
+          ? '<img src="' + it.image + '" alt="' + it.name + '" loading="lazy">'
+          : art[it.size]) + '</div>' +
+        '<div class="card-id">' +
+          '<h3><button class="product-select" type="button" data-select-product="' + index + '" aria-pressed="false">' + it.name + '</button></h3>' +
+          '<div class="tags">' +
+            '<span class="tag on">' + it.va + ' VA · ' + it.w + ' W</span>' +
+            '<span class="tag">220 V</span>' +
+            '<span class="tag">Interactiva</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="price"><span class="gs">Gs. ' + gs(it.precio) + '</span><span class="cur">precio de venta</span></div>' +
+      '<div class="card-body">' +
+        '<p class="use">' + it.uso + '</p>' +
+        '<table class="runtime"><caption>Autonomía estimada · ' + it.bat + '</caption><tbody>' + rt + '</tbody></table>' +
+      '</div>' +
+    '</article>';
+  }).join('');
+
+  document.getElementById('cards').innerHTML = cards;
+
+  document.getElementById('compare-body').innerHTML = items.map(function (it, index) {
+    var c = it.rt.map(function (v) {
+      return v === null ? '<td class="num no">—</td>' : '<td class="num">' + v.replace(' min', '') + '</td>';
+    }).join('');
+    return '<tr data-product-index="' + index + '">' +
+      '<td class="name"><button class="product-select" type="button" data-select-product="' + index + '" aria-pressed="false">' + it.name + '</button></td>' +
+      '<td class="num">' + it.va + ' / ' + it.w + '</td>' +
+      c +
+      '<td class="num">Gs. ' + gs(it.precio) + '</td>' +
+    '</tr>';
+  }).join('');
+
+  function selectProduct(index) {
+    var selectedIndex = document.querySelector('.card.selected[data-product-index="' + index + '"]') ? -1 : index;
+    document.querySelectorAll('[data-product-index]').forEach(function (element) {
+      var selected = Number(element.getAttribute('data-product-index')) === selectedIndex;
+      element.classList.toggle('selected', selected);
+      if (element.matches('.card')) element.setAttribute('aria-current', selected ? 'true' : 'false');
+    });
+    document.querySelectorAll('[data-select-product]').forEach(function (button) {
+      button.setAttribute('aria-pressed', Number(button.getAttribute('data-select-product')) === selectedIndex ? 'true' : 'false');
+    });
+  }
+
+  document.getElementById('cards').addEventListener('click', function (event) {
+    var card = event.target.closest('.card');
+    if (card) selectProduct(Number(card.getAttribute('data-product-index')));
+  });
+
+  document.getElementById('compare-body').addEventListener('click', function (event) {
+    var row = event.target.closest('tr[data-product-index]');
+    if (row) selectProduct(Number(row.getAttribute('data-product-index')));
+  });
+})();
+</script>
+
+</body></html>
